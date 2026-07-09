@@ -11,3 +11,13 @@
   font-style: normal;
   font-size: x-large;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #111827; /* bg-gray-900 baseline */
+  font-family: var(--font-yuyu);
+  font-weight: 500;
+  font-style: normal;
+}

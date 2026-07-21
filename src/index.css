@@ -1,22 +1,34 @@
-@import url("https://fonts.googleapis.com/css2?family=Yuyu&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Yuyu&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Yuyu&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-primary: #5044e5;
 }
 
-* {
+.yuyu-regular {
   font-family: "Yuyu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+* {
+  font-family: "Bungee Inline", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* * {
+  font-family: "Bungee", sans-serif;
   font-weight: 500;
   font-style: normal;
   font-size: x-large;
-}
+} */
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #111827; /* bg-gray-900 baseline */
+  background-color: #0d1423; /* bg-gray-900 baseline */
   font-family: var(--font-yuyu);
   font-weight: 500;
   font-style: normal;

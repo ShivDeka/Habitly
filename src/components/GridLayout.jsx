@@ -1,6 +1,6 @@
 export default function Gridlayout() {
   return (
-    <div className="bg-gray-900 py-24 sm:py-32 min-h-screen">
+    <div className="py-24 sm:py-32 min-h-screen">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         {/* Header Section */}
         <h2 className="text-center text-base/7 font-semibold text-indigo-400">

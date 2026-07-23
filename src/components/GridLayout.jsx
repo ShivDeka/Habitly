@@ -1,45 +1,45 @@
-import { ContinuousCalendar } from "./ContinuousCalendar";
+import TodoList from "./dashboard/TodoList";
+import TodaysRun from "./dashboard/TodaysRun";
+import WeeklyTable from "./dashboard/WeeklyTable";
+import MonthCalendar from "./dashboard/MonthCalendar";
 
 export default function Gridlayout() {
   return (
-    <div className="py-24 sm:py-32 min-h-screen">
+    // pt-40: pushes content below the fixed navbar so nothing is hidden
+    // under it on load. Adjust this number to match your navbar's actual
+    // rendered height (inspect it in devtools — if the navbar is taller
+    // or shorter than expected, this is the only number to change here).
+    // Because Navbar is `fixed`, this padding is what makes the grid
+    // "start where the nav ends" — the grid itself scrolls normally
+    // underneath the navbar's blurred glass effect once padded past it.
+    <div className="pt-40 pb-16 min-h-screen">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        {/* Header Section */}
-        <h2 className="text-center text-base/7 font-semibold text-indigo-400">
-          Dashboard
-        </h2>
-        <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          overview
-        </p>
-
         {/* Grid Container */}
-        <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-          {/* Left Column (Spans 2 rows) - Calendar */}
-          <div className="relative lg:row-span-2 rounded-lg bg-gray-800 border border-gray-700/50 overflow-hidden h-[400px] lg:h-400px">
-            <ContinuousCalendar
-              onClick={(day, month, year) => console.log(day, month, year)}
+        <div className="grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
+          {/* Left Column (spans 2 rows) — To-do list */}
+          <div className="relative lg:row-span-2 h-[500px] lg:h-auto">
+            <TodoList />
+          </div>
+
+          {/* Middle Column (spans 2 rows) — Today's activities, overlapping
+              illustration background */}
+          <div
+            className="relative lg:row-span-2 rounded-lg overflow-hidden h-[500px] lg:h-auto bg-cover bg-center flex items-start p-4"
+            style={{ backgroundImage: "url('/park-runner-bg.png')" }}
+          >
+            <TodaysRun />
+          </div>
+
+          {/* Right Top — This week's habit table */}
+          <div className="relative h-[340px] lg:h-auto">
+            <WeeklyTable />
+          </div>
+
+          {/* Right Bottom — Mini month calendar */}
+          <div className="relative h-[400px] lg:h-auto">
+            <MonthCalendar
+              onDayClick={(day, month, year) => console.log(day, month, year)}
             />
-          </div>
-
-          {/* Middle Top Column */}
-          <div className="relative rounded-lg bg-gray-800 p-8 flex flex-col justify-center items-center border border-gray-700/50">
-            <p className="text-xl font-medium text-white">
-              Performance Metrics
-            </p>
-          </div>
-
-          {/* Middle Bottom Column */}
-          <div className="relative rounded-lg bg-gray-800 p-8 flex flex-col justify-center items-center border border-gray-700/50">
-            <p className="text-xl font-medium text-white">
-              weekly performance{" "}
-            </p>
-          </div>
-
-          {/* Right Column (Spans 2 rows) */}
-          <div className="relative lg:row-span-2 rounded-lg bg-gray-800 p-8 flex flex-col justify-center items-center border border-gray-700/50">
-            <p className="text-xl font-medium text-indigo-400 font-semibold">
-              performance Metrics
-            </p>
           </div>
         </div>
       </div>

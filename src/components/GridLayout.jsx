@@ -6,10 +6,10 @@ export default function Gridlayout() {
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         {/* Header Section */}
         <h2 className="text-center text-base/7 font-semibold text-indigo-400">
-          Dashboard Layout
+          Dashboard
         </h2>
         <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-          Overview
+          overview
         </p>
 
         {/* Grid Container */}

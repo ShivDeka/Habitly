@@ -1,4 +1,4 @@
-import ContinuousCalendar from "./ContinuousCalendar";
+import { ContinuousCalendar } from "./ContinuousCalendar";
 
 export default function Gridlayout() {
   return (

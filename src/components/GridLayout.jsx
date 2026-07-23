@@ -1,4 +1,4 @@
-import TodoList from "./dashboard/TodoList";
+import Todolist from "./dashboard/Todolist";
 import TodaysRun from "./dashboard/TodaysRun";
 import WeeklyTable from "./dashboard/WeeklyTable";
 import MonthCalendar from "./dashboard/MonthCalendar";

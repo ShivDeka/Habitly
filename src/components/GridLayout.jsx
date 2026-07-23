@@ -18,7 +18,7 @@ export default function Gridlayout() {
         <div className="grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
           {/* Left Column (spans 2 rows) — To-do list */}
           <div className="relative lg:row-span-2 h-[500px] lg:h-auto">
-            <TodoList />
+            <Todolist />
           </div>
 
           {/* Middle Column (spans 2 rows) — Today's activities, overlapping

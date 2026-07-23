@@ -1,3 +1,5 @@
+import { ContinuousCalendar } from "./ContinuousCalendar";
+
 export default function Gridlayout() {
   return (
     <div className="py-24 sm:py-32 min-h-screen">
@@ -12,9 +14,11 @@ export default function Gridlayout() {
 
         {/* Grid Container */}
         <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-          {/* Left Column (Spans 2 rows) */}
-          <div className="relative lg:row-span-2 rounded-lg bg-gray-800 p-8 flex flex-col justify-center items-center border border-gray-700/50">
-            <p className="text-xl font-medium text-white">Calender</p>
+          {/* Left Column (Spans 2 rows) - Calendar */}
+          <div className="relative lg:row-span-2 rounded-lg bg-gray-800 border border-gray-700/50 overflow-hidden h-[400px] lg:h-400px">
+            <ContinuousCalendar
+              onClick={(day, month, year) => console.log(day, month, year)}
+            />
           </div>
 
           {/* Middle Top Column */}
@@ -31,7 +35,7 @@ export default function Gridlayout() {
             </p>
           </div>
 
-          {/* Right Column (Spans 2 rows) - Calendar */}
+          {/* Right Column (Spans 2 rows) */}
           <div className="relative lg:row-span-2 rounded-lg bg-gray-800 p-8 flex flex-col justify-center items-center border border-gray-700/50">
             <p className="text-xl font-medium text-indigo-400 font-semibold">
               performance Metrics

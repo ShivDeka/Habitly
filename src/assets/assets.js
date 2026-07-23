@@ -31,6 +31,8 @@ import sun_icon from "./sun_icon.svg";
 import moon_icon from "./moon_icon.svg";
 import favicon from "./favicon.svg";
 import user from "./user.svg";
+import bgimage from "./bgimage.png";
+import avatar from "./avatar.png";
 
 export const company_logos = [
   microsoft_logo,
@@ -68,7 +70,9 @@ const assets = {
   sun_icon,
   moon_icon,
   favicon,
-  user
+  user,
+  bgimage,
+  avatar,
 };
 
 export default assets;

@@ -1,35 +1,116 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import assets from "../assets/assets";
 
-const Navbar = ({ theme, setTheme }) => {
+const Navbar = ({
+  theme,
+  userName = "Shiv",
+  taskCompletion = 35,
+  avatarUrl,
+  onAvatarChange,
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const avatarInputRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formattedTime = currentTime.toLocaleTimeString("en-GB");
+  const formattedDate = currentTime.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+  });
+
+  const navLinkClass = ({ isActive }) =>
+    `px-4 py-1.5 rounded-full font-medium transition-colors ${
+      isActive ? "bg-gray-600 text-white" : "text-gray-100 hover:text-white"
+    }`;
+
   return (
     <div
-      className="flex justify-between items-center px-15 sm:px-12 lg:px-24 
-    xl:px-40 py-12 sticky top-0 z-20  font-m"
+      className="fixed top-0 left-0 w-full z-70 
+  bg-white/30 dark:bg-black/30 backdrop-blur-xl
+  px-6 sm:px-12 lg:px-24 xl:px-40 pt-3 pb-4 font-m"
     >
-      <img
-        src={theme === "dark" ? assets.logo_dark : assets.logo}
-        className="w-40 sm:w-40"
-        alt=""
-      />
+      {/* Top row: logo + greeting/weather/clock */}
+      <div className="flex justify-between items-centre">
+        <img
+          src={theme === "dark" ? assets.logo_dark : assets.logo}
+          className="w-25 sm:w-35"
+          alt="logo"
+        />
 
+        <div className="hidden sm:flex items-center gap-5">
+          {/* Avatar — click to change */}
+          <div className="relative group">
+            <img
+              src={avatarUrl || assets.avatar}
+              alt="avatar"
+              className="h-24 lg:h-28 object-contain cursor-pointer rounded-full"
+              onClick={() => avatarInputRef.current?.click()}
+            />
+            <span className="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/40 rounded-full text-white text-xs">
+              Change
+            </span>
+            <input
+              ref={avatarInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => onAvatarChange(e.target.files[0])}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-xl lg:text-2xl font-semibold text-yellow-200">
+              Good Morning {userName}
+            </h2>
+
+            <div className="flex items-center gap-3">
+              <span className="bg-white rounded-lg px-3 py-1 text-sm shadow-sm">
+                {formattedDate}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-300">
+                <img src={assets.weather_icon} alt="" className="w-5 h-5" />
+                sunny day / rain expected
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="relative w-40 h-5 bg-gray-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-green-500 flex items-center justify-center text-[10px] text-white font-medium"
+                  style={{ width: `${taskCompletion}%` }}
+                >
+                  Task {taskCompletion}%
+                </div>
+              </div>
+              <span className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-md">
+                {formattedTime}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile menu icon */}
+        <img
+          src={theme === "dark" ? assets.menu_icon_dark : assets.menu_icon}
+          alt=""
+          onClick={() => setSidebarOpen(true)}
+          className="w-8 sm:hidden"
+        />
+      </div>
+
+      {/* Pill nav bar */}
       <div
-        className={`text-gray-700 dark:text-white sm:text-xl
-          sm:bg-white/70
-          dark:sm:bg-gray-900/80
-          sm:backdrop-blur-xl
-          sm:rounded-full
-          sm:px-8
-          sm:py-3
-          sm:shadow-xl ${
-            !sidebarOpen
-              ? "max-sm:w-0 overflow-hidden"
-              : "max-sm:w-60 max-sm:p1-10"
-          } 
-        max-sm:fixed top-0 bottom-e right-0 max-sm:min-h-screen max-sm:h-full 
-        max-sm:flex-col max-sm:bg-primary max-sm:text-white max-sm:pt-10 flex 
-        sm:items-center gap-5 transition-all`}
+        className={`mt-1 text-white text-base sm:text-m
+          bg-gray-800/90 backdrop-blur-xl rounded-full
+          px-3 py-3 shadow-xl w-fit
+          ${!sidebarOpen ? "max-sm:hidden" : "max-sm:flex"}
+          flex items-center gap-2 transition-all`}
       >
         <img
           src={assets.close_icon}
@@ -37,58 +118,42 @@ const Navbar = ({ theme, setTheme }) => {
           className="w-5 absolute right-4 top-4 sm:hidden"
           onClick={() => setSidebarOpen(false)}
         />
-        <a
+        <NavLink
+          to="/"
+          end
           onClick={() => setSidebarOpen(false)}
-          href="#"
-          className="sm:hover:border-b"
+          className={navLinkClass}
         >
           Home
-        </a>
-        <a
+        </NavLink>
+        <NavLink
+          to="/activities"
           onClick={() => setSidebarOpen(false)}
-          href="#routine"
-          className="sm:hover:border-b"
-        >
-          Routine
-        </a>
-        <a
-          onClick={() => setSidebarOpen(false)}
-          href="#calender"
-          className="sm:hover:border-b"
-        >
-          Celender
-        </a>
-        <a
-          onClick={() => setSidebarOpen(false)}
-          href="#activities"
-          className="sm:hover:border-b"
+          className={navLinkClass}
         >
           Activities
-        </a>
-        <a
+        </NavLink>
+        <NavLink
+          to="/track"
           onClick={() => setSidebarOpen(false)}
-          href="#account"
-          className="sm:hover:border-b"
+          className={navLinkClass}
         >
-          Profile
-        </a>
-      </div>
-
-      <div>
-        <img
-          src={theme === "dark" ? assets.menu_icon_dark : assets.menu_icon}
-          alt=""
-          onClick={() => setSidebarOpen(true)}
-          className="w-8 sm:hidden"
-        />
-        <a
-          href="#account"
-          className="text-sm max-sm:hidden flex items-center 
-        gap-2 bg-primary text-white px-6 py-2 rounded-full cursor-pointer 
-        hover:scale-103 transition-all"
+          Track
+        </NavLink>
+        <NavLink
+          to="/calendar"
+          onClick={() => setSidebarOpen(false)}
+          className={navLinkClass}
         >
-          Profile <img src={assets.user} width={40} alt="user" />
-        </a>
+          Calendar
+        </NavLink>
+        <NavLink
+          to="/settings"
+          onClick={() => setSidebarOpen(false)}
+          className={navLinkClass}
+        >
+          Settings
+        </NavLink>
       </div>
     </div>
   );
